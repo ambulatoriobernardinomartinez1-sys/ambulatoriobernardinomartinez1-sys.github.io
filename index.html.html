@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambulatorio Dr. Bernardino Martinez</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://kit.fontawesome.com/b5ec7d287b.js" crossorigin="anonymous"></script>
+    <style>
+/* ===== VARIABLES Y RESET ===== */
+*::after,
+*::before,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f7fbfc;
+    padding-top: 5rem;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* ===== HEADER Y NAVEGACIÓN ===== */
+header {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    background: linear-gradient(180deg, #23d1dd 0%, #17aabb 100%);
+}
+
+header h1 {
+    margin-left: 1rem;
+    color: white;
+}
+
+/* Iconos del header */
+.icon-cart {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+    color: white;
+}
+
+.icon-cart:hover {
+    stroke: rgb(216, 216, 216);
+    cursor: pointer;
+}
+
+.icon-close {
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+}
+
+.icon-close:hover {
+    stroke: red;
+    cursor: pointer;
+}
+
+/* Menú desplegable */
+.container-lista-secciones {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #f6feff;
+    width: 90%;
+    max-width: 400px;
+    z-index: 1;
+    border-radius: 1rem;
+}
+
+.hidden-secciones {
+    display: none;
+}
+
+.info-secciones {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-secciones a {
+    padding: 0.6rem 0.8rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(54, 118, 122);
+}
+
+.info-secciones a:hover {
+    color: rgb(81, 186, 194);
+    background: #e9f6f7;
+    border-radius: 1rem;
+}
+
+/* ===== HERO SECTION ===== */
+.container-imagen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 80vh;
+    color: white;
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("imagenes/Ambulatorio_1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.container-imagen h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ===== CONTENEDORES PRINCIPALES ===== */
+.container-items {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    border-top: 2px solid #a1d5db;
+}
+
+.container-items:first-of-type {
+    border-top: none;
+}
+
+.container-titulo-servicios {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.container-titulo-servicios h1 {
+    font-size: 2.5rem;
+    color: #1e5f66;
+    font-weight: bold;
+}
+
+.container-descripcion {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    line-height: 1.8;
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+.container-descripcion-servicio {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(9, 25, 27, 0.04);
+    transition: transform 0.3s ease;
+}
+
+.container-descripcion-servicio:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(23, 170, 187, 0.1);
+}
+
+/* ===== CARDS DE SERVICIOS ===== */
+.grid-servicios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.card-servicio-moderna {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(23, 170, 187, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-servicio-moderna::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #23d1dd, #17aabb);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.card-servicio-moderna:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(23, 170, 187, 0.15);
+    border-color: transparent;
+}
+
+.card-servicio-moderna:hover::before {
+    transform: scaleX(1);
+}
+
+.icono-servicio {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.icono-servicio i {
+    font-size: 2.5rem;
+    transition: transform 0.3s ease;
+}
+
+.card-servicio-moderna:hover .icono-servicio i {
+    transform: scale(1.1);
+}
+
+.card-servicio-moderna h3 {
+    color: #1e5f66;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.card-servicio-moderna p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+/* Efecto de resaltado al hacer clic desde las tarjetas */
+.tabla-fila:target {
+    background-color: rgba(35, 209, 221, 0.15);
+    transition: background-color 0.5s ease;
+}
+
+/* ===== TABLA DE HORARIOS ===== */
+.tabla-horarios {
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    margin: 1rem 0;
+    border: 1px solid rgba(23, 170, 187, 0.1);
+}
+
+.tabla-fila {
+    display: grid;
+    border-bottom: 1px solid rgba(23, 170, 187, 0.1);
+    transition: 0.2s ease;
+}
+
+/* ESTRUCTURAS EN ESCRITORIO (Separadas por tabla) */
+.fila-horarios {
+    grid-template-columns: 2fr 1.2fr 1fr 1.5fr; /* 4 columnas de siempre */
+}
+
+.fila-vacunacion {
+    grid-template-columns: 2fr 1.2fr 1.5fr 1.3fr 1.5fr; /* 5 columnas con responsable */
+}
+
+.tabla-fila:hover {
+    background: rgba(23, 170, 187, 0.02);
+}
+
+.tabla-fila.encabezado {
+    background: linear-gradient(135deg, #17aabb, #23d1dd);
+    color: white;
+    font-weight: 600;
+    border-bottom: none;
+}
+
+.tabla-fila.encabezado .tabla-col {
+    padding: 1.2rem 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabla-col {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+
+.tabla-col i {
+    font-size: 1.1rem;
+    margin-right: 8px;
+}
+
+.etiqueta-servicio {
+    background: linear-gradient(135deg, #f0f9fa, #e5f5f7);
+    color: #17aabb;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.estado-cerrado {
+    background: #fee;
+    color: #c00;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+/* ===== TARJETAS DE VACUNACIÓN ===== */
+.grid-vacunacion {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.tarjeta-vacunacion {
+    background: white;
+    padding: 2rem 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-vacunacion:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(23, 170, 187, 0.1);
+}
+
+.tarjeta-vacunacion i {
+    font-size: 2.5rem;
+    color: #17aabb;
+    margin-bottom: 1rem;
+}
+
+.tarjeta-vacunacion h3 {
+    color: #1e5f66;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* ===== NOTAS Y MENSAJES ===== */
+.nota-informativa {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    color: #1e5f66;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background-color: #363636;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+footer h4 {
+    color: #cccccc;
+    padding: 2rem 1rem 0.5rem;
+    font-size: 1.2rem;
+}
+
+footer .social {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px 0;
+}
+
+footer .social a {
+    color: black;
+    background-color: white;
+    padding: 10px 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+footer .social a i {
+    font-size: 20px;
+}
+
+footer .social a:hover {
+    transform: translateY(-5px);
+    background: #17aabb;
+    color: white;
+}
+
+footer .copy {
+    padding: 15px 0;
+    background-color: #535353;
+    color: white;
+}
+
+/* ===== ===== 
+    MEDIA QUERIES 
+    ===== ===== */
+
+/* Tablet (768px - 992px) */
+@media (max-width: 992px) {
+    .grid-servicios {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .fila-horarios {
+        grid-template-columns: 1.8fr 1.2fr 1fr 1.3fr;
+    }
+    
+    .fila-vacunacion {
+        grid-template-columns: 1.5fr 1fr 1.3fr 1.1fr 1.2fr;
+    }
+    
+    .tabla-col {
+        padding: 0.9rem 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .container-titulo-servicios h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Móvil (hasta 768px) */
+@media (max-width: 768px) {
+    /* Header */
+    .icon-1, .icon-2 {
+        width: 5rem;
+        height: 5rem;
+        top: 4rem;
+    }
+    
+    /* Grids a 1 columna */
+    .grid-servicios,
+    .grid-vacunacion {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    /* Cards */
+    .card-servicio-moderna {
+        padding: 1.5rem;
+    }
+    
+    .icono-servicio {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .icono-servicio i {
+        font-size: 2rem;
+    }
+    
+    /* Tabla horarios - versión mobile */
+    .tabla-horarios {
+        border-radius: 15px;
+    }
+    
+    .tabla-fila.encabezado {
+        display: none;
+    }
+    
+    /* Vuelven a actuar como bloque vertical de una sola columna */
+    .tabla-fila {
+        grid-template-columns: 1fr !important;
+        border-bottom: 2px solid rgba(23, 170, 187, 0.2);
+        padding: 1rem;
+    }
+    
+    .tabla-col {
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed rgba(23, 170, 187, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .tabla-col:last-child {
+        border-bottom: none;
+    }
+    
+    .tabla-col::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #17aabb;
+        width: 45%;
+        font-size: 0.9rem;
+    }
+    
+    .tabla-col > * {
+        width: 55%;
+        text-align: right;
+    }
+    
+    /* Listas */
+    .lista-requisitos {
+        columns: 1;
+    }
+    
+    /* Footer */
+    footer .social {
+        gap: 15px;
+    }
+    
+    footer .social a {
+        padding: 8px 10px;
+    }
+    
+    /* Tipografía */
+    .container-descripcion {
+        font-size: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .container-titulo-servicios h1 {
+        font-size: 1.8rem;
+    }
+    
+    .container-imagen h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Móvil pequeño (hasta 480px) */
+@media (max-width: 480px) {
+    .tabla-col::before {
+        width: 40%;
+        font-size: 0.85rem;
+    }
+    
+    .tabla-col > * {
+        width: 60%;
+    }
+    
+    .container-titulo-servicios h1 {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+</head>
+<body>    
+    <header>
+        <h1>Ambulatorio Dr. Bernardino Martinez</h1>
+
+        <div class="container-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </div>
+
+        <div class="container-lista-secciones hidden-secciones">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+
+            <div class="info-secciones">
+                <a href="#">Inicio</a>
+                <a href="#horarios-atencion">Horarios</a>
+                <a href="#servicio-seccion">Servicios</a>
+                <a href="#jornada-vacunacion">Vacunación</a>
+                <a href="#contactenos">Contacto</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div class="container-imagen">
+        <h1>Ambulatorio Dr. Bernardino Martinez</h1>
+    </div>
+
+    <!-- DESCRIPCIÓN CORTA -->
+    <div class="container-descripcion" style="background: white; border-radius: 30px 30px 0 0; margin-top: -2rem; position: relative; box-shadow: 0 -5px 20px rgba(0,0,0,0.03);">
+       <p style="font-size: 1.3rem; text-align: center; max-width: 900px; margin: 0 auto; color: #2c3e50;">
+            <strong>Bienvenido al sitio web del Ambulatorio Dr. Bernardino Martínez.</strong><br>
+            Este espacio digital ha sido diseñado para que la comunidad de Cantarrana y sectores cercanos accedan de forma rápida y sencilla a la información sobre horarios, servicios, requisitos y campañas de salud de nuestro centro.
+El Ambulatorio Tipo I Dr. Bernardino Martínez es un centro de atención primaria con más de 70 años de trayectoria, que ofrece emergencia 24h, medicina general, odontología, laboratorio, rayos X, farmacia y vacunación, además de programas de prevención y el Plan Quirúrgico Nacional.
+Te invitamos a explorar nuestro sitio y a mantenerte informado para cuidar tu salud y la de tu familia.
+        </p>
+    </div>
+
+    <!-- SECCIÓN DE SERVICIOS -->
+    <section class="container-items" id="servicio-seccion">
+        <div class="container-titulo-servicios">
+            <h2 style="color: #1e5f66; font-size: 2.5rem;">Nuestros Servicios Clínicos</h2>
+            <p style="font-size: 1.2rem; font-weight: normal; color: #5a7a7f; margin-top: 0.5rem;">
+                Atención integral para toda la familia (Haz clic en una tarjeta para ver su horario)
+            </p>
+        </div>
+        
+        <div class="grid-servicios">
+            <!-- Cada tarjeta ahora es un enlace (<a>) que apunta al ID de su horario -->
+            <a href="#horario-medicina" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #e3f2fd;">
+                    <i class="fas fa-stethoscope" style="color: #0d6efd;"></i>
+                </div>
+                <h3>Medicina General</h3>
+                <p>Consultas de primera vez, controles periódicos, seguimiento de enfermedades crónicas.</p>
+            </a>
+
+            <a href="#horario-odontologia" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #fff3e0;">
+                    <i class="fas fa-tooth" style="color: #fd7e14;"></i>
+                </div>
+                <h3>Odontología</h3>
+                <p>Limpiezas, caries, extracciones, endodoncias y ortodoncia para todas las edades.</p>
+            </a>
+
+            <a href="#horario-pediatria" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #e8f5e8;">
+                    <i class="fas fa-child" style="color: #2e7d32;"></i>
+                </div>
+                <h3>Pediatría</h3>
+                <p>Controles de crecimiento, vacunación, nutrición infantil y enfermedades respiratorias.</p>
+            </a>
+
+            <a href="#horario-ginecologia" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #fce4ec;">
+                    <i class="fas fa-female" style="color: #d81b60;"></i>
+                </div>
+                <h3>Ginecología</h3>
+                <p>Controles ginecológicos, embarazo, salud sexual, PAP y menopausia.</p>
+            </a>
+
+            <a href="#horario-laboratorio" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #e8eaf6;">
+                    <i class="fas fa-flask" style="color: #3f51b5;"></i>
+                </div>
+                <h3>Laboratorio Clínico</h3>
+                <p>Análisis de sangre, orina y heces. Perfiles bioquímicos y hormonales.</p>
+            </a>
+
+            <a href="#horario-nutricion" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #fff3cd;">
+                    <i class="fas fa-heartbeat" style="color: #856404;"></i>
+                </div>
+                <h3>Nutrición</h3>
+                <p>Planes de alimentación, control de peso, diabetes y deporte.</p>
+            </a>
+
+            <a href="#horario-inmunizacion" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #e0f7fa;">
+                    <i class="fas fa-syringe" style="color: #0097a7;"></i>
+                </div>
+                <h3>Inmunización</h3>
+                <p>Vacunas del Programa Nacional para todas las edades.</p>
+            </a>
+
+            <a href="#horario-nefrologia" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #fbe9e7;">
+                    <i class="fas fa-heart" style="color: #bf360c;"></i>
+                </div>
+                <h3>Nefrología</h3>
+                <p>Especialista en riñón, hipertensión arterial y prevención renal.</p>
+            </a>
+
+            <a href="#horario-planificacion" class="card-servicio-moderna" style="text-decoration: none; color: inherit;">
+                <div class="icono-servicio" style="background: #e1f5fe;">
+                    <i class="fas fa-baby" style="color: #0288d1;"></i>
+                </div>
+                <h3>Planificación Familiar</h3>
+                <p>Asesoría en métodos anticonceptivos, DIU y consejería sexual.</p>
+            </a>
+        </div>
+    </section>  
+
+    <!-- SECCIÓN DE HORARIOS POR ESPECIALIDAD -->
+    <section class="container-items" id="horarios-atencion">
+        <div class="container-titulo-servicios">
+            <h2 style="color: #1e5f66; font-size: 2.5rem;">Horarios por Especialidad</h2>
+            <p style="font-size: 1.2rem; font-weight: normal; color: #5a7a7f; margin-top: 0.5rem;">
+                Consulta disponibilidad de cada servicio
+            </p>
+        </div>
+
+        <div class="tabla-horarios">
+            <!-- Encabezado -->
+            <div class="tabla-fila encabezado fila-horarios">
+                <div class="tabla-col">Especialidad</div>
+                <div class="tabla-col">Turno Matutino</div>
+                <div class="tabla-col">Turno Vespertino</div>
+                <div class="tabla-col">Modalidad de atencion</div>
+            </div>
+
+            <!-- Medicina General -->
+            <div class="tabla-fila fila-horarios" id="horario-medicina">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-stethoscope" style="color: #0d6efd; margin-right: 8px;"></i>Medicina General</div>
+                <div class="tabla-col" data-label="Turno Matutino">Lunes - Miercoles - Viernes</div>
+                <div class="tabla-col" data-label="Turno Vespertino">Martes - Jueves</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Por orden de llegada</span></div>
+            </div>
+
+            <!-- Odontología -->
+            <div class="tabla-fila fila-horarios" id="horario-odontologia">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-tooth" style="color: #fd7e14; margin-right: 8px;"></i>Odontología</div>
+                <div class="tabla-col" data-label="Turno Matutino">Lunes - Martes - Miercoles</div>
+                <div class="tabla-col" data-label="Turno Vespertino">Lunes - Martes - Jueves</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Por orden de llegada</span></div>
+            </div>
+
+            <!-- Pediatría -->
+            <div class="tabla-fila fila-horarios" id="horario-pediatria">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-child" style="color: #2e7d32; margin-right: 8px;"></i>Pediatría</div>
+                <div class="tabla-col" data-label="Turno Matutino">Lunes - Miercoles</div>
+                <div class="tabla-col" data-label="Turno Vespertino">Lunes - Miercoles</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Tener cita Previa</span></div>
+            </div>
+
+            <!-- Ginecología -->
+            <div class="tabla-fila fila-horarios" id="horario-ginecologia">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-female" style="color: #d81b60; margin-right: 8px;"></i>Ginecología</div>
+                <div class="tabla-col" data-label="Turno Matutino">Martes - Miercoles</div>
+                <div class="tabla-col" data-label="Turno Vespertino">Martes - Miercoles</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Tener cita Previa</span></div>
+            </div>
+
+            <!-- Laboratorio -->
+            <div class="tabla-fila fila-horarios" id="horario-laboratorio">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-flask" style="color: #3f51b5; margin-right: 8px;"></i>Laboratorio</div>
+                <div class="tabla-col" data-label="Turno Matutino">24 Horas</div>
+                <div class="tabla-col" data-label="Turno Vespertino">24 Horas</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Por orden de llegada</span></div>
+            </div>
+
+            <!-- Nutrición -->
+            <div class="tabla-fila fila-horarios" id="horario-nutricion">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-heartbeat" style="color: #856404; margin-right: 8px;"></i>Nutrición</div>
+                <div class="tabla-col" data-label="Turno Matutino">Martes - Jueves</div>
+                <div class="tabla-col" data-label="Turno Vespertino">Martes - Jueves</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Por orden de llegada</span></div>
+            </div>
+
+            <!-- Inmunización -->
+            <div class="tabla-fila fila-horarios" id="horario-inmunizacion">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-syringe" style="color: #0097a7; margin-right: 8px;"></i>Inmunización</div>
+                <div class="tabla-col" data-label="Turno Matutino">24 Horas</div>
+                <div class="tabla-col" data-label="Turno Vespertino">24 Horas</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Por orden de llegada</span></div>
+            </div>
+
+            <!-- Nefrologo -->
+            <div class="tabla-fila fila-horarios" id="horario-nefrologia">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-heart" style="color: #bf360c;"></i>Nefrologo</div>
+                <div class="tabla-col" data-label="Turno Matutino">Martes - Jueves</div>
+                <div class="tabla-col" data-label="Turno Vespertino"><span class="estado-cerrado">Cerrado</span></div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Por orden de llegada</span></div>
+            </div>
+
+            <!-- Planificacion Familiar -->
+            <div class="tabla-fila fila-horarios" id="horario-planificacion">
+                <div class="tabla-col" data-label="Especialidad"><i class="fas fa-baby" style="color: #0288d1;"></i>Planificacion Familiar</div>
+                <div class="tabla-col" data-label="Turno Matutino">Martes</div>
+                <div class="tabla-col" data-label="Turno Vespertino">Martes</div>
+                <div class="tabla-col" data-label="Modalidad de atencion"><span class="etiqueta-servicio">Por orden de llegada</span></div>
+            </div>                    
+        </div>
+    </section>
+
+    <!-- SECCIÓN VACUNACIÓN -->
+    <section class="container-items" id="jornada-vacunacion">
+        <div class="container-titulo-servicios">
+            <h2 style="color: #1e5f66; font-size: 2.5rem;">Jornadas de Vacunación</h2>
+            <p style="font-size: 1.2rem; font-weight: normal; color: #5a7a7f; margin-top: 0.5rem;">
+                Consulta nuestro plan de contingencia
+            </p>            
+        </div>
+      
+        <div class="tabla-horarios">        
+            <!-- Encabezado Vacunacion -->
+            <div class="tabla-fila encabezado fila-vacunacion">
+                <div class="tabla-col">Actividades</div>
+                <div class="tabla-col">Fecha</div>
+                <div class="tabla-col">Localizacion</div>
+                <div class="tabla-col">Responsable</div>
+                <div class="tabla-col">Telefono</div>              
+            </div>
+
+            <!-- Filas de Vacunación -->
+            <div class="tabla-fila fila-vacunacion">
+                <div class="tabla-col" data-label="Actividades"><i class="fas fa-syringe" style="color: #0097a7; margin-right: 8px;"></i>Vacunacion Rutina BAC Monitoreo</div>
+                <div class="tabla-col" data-label="Fecha">18 - 05 - 26</div>
+                <div class="tabla-col" data-label="Localizacion">Acto la Granja -<br> Pto de la Madera</div>
+                <div class="tabla-col" data-label="Responsable">Ines Vasquez</div>
+                <div class="tabla-col" data-label="Telefono"><span class="etiqueta-servicio">0412 192 1604</span></div>
+            </div>
+
+            <div class="tabla-fila fila-vacunacion">
+                <div class="tabla-col" data-label="Actividades"><i class="fas fa-syringe" style="color: #0097a7; margin-right: 8px;"></i>Vacunacion Rutina BAC Monitoreo</div>
+                <div class="tabla-col" data-label="Fecha">19 - 05 - 26</div>
+                <div class="tabla-col" data-label="Localizacion">La Sabana -<br> Camino Nuevo</div>
+                <div class="tabla-col" data-label="Responsable">Ines Vasquez</div>
+                <div class="tabla-col" data-label="Telefono"><span class="etiqueta-servicio">0412 192 1604</span></div>
+            </div>
+
+            <div class="tabla-fila fila-vacunacion">
+                <div class="tabla-col" data-label="Actividades"><i class="fas fa-syringe" style="color: #0097a7; margin-right: 8px;"></i>Vacunacion Rutina BAC Monitoreo</div>
+                <div class="tabla-col" data-label="Fecha">20 - 05 - 26</div>
+                <div class="tabla-col" data-label="Localizacion">Villa Jardin -<br> Villa Bolivariana</div>
+                <div class="tabla-col" data-label="Responsable">Ines Vasquez</div>
+                <div class="tabla-col" data-label="Telefono"><span class="etiqueta-servicio">0412 192 1604</span></div>
+            </div>
+
+            <div class="tabla-fila fila-vacunacion">
+                <div class="tabla-col" data-label="Actividades"><i class="fas fa-syringe" style="color: #0097a7; margin-right: 8px;"></i>Vacunacion Rutina BAC Monitoreo</div>
+                <div class="tabla-col" data-label="Fecha">21 - 05 - 26</div>
+                <div class="tabla-col" data-label="Localizacion">Villa Joaquina -<br> Villa Cootoperi</div>
+                <div class="tabla-col" data-label="Responsable">Ines Vasquez</div>
+                <div class="tabla-col" data-label="Telefono"><span class="etiqueta-servicio">0412 192 1604</span></div>
+            </div>
+
+            <div class="tabla-fila fila-vacunacion">
+                <div class="tabla-col" data-label="Actividades"><i class="fas fa-syringe" style="color: #0097a7; margin-right: 8px;"></i>Vacunacion Rutina BAC Monitoreo</div>
+                <div class="tabla-col" data-label="Fecha">22 - 05 - 26</div>
+                <div class="tabla-col" data-label="Localizacion">Villa Nazareth -<br> Valle Sta Ines</div>
+                <div class="tabla-col" data-label="Responsable">Ines Vasquez</div>
+                <div class="tabla-col" data-label="Telefono"><span class="etiqueta-servicio">0412 192 1604</span></div>
+            </div>         
+        </div> 
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; width: 100%; margin-top: 2rem;">
+            
+            <div class="container-descripcion-servicio" style="text-align: left; padding: 2rem;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-baby" style="font-size: 2.5rem; color: #17aabb;"></i>
+                    <h3 style="margin-top: 0.5rem;">Vacunas Para Niños Menores de 5 Años</h3>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 0.6rem 0; border-bottom: 1px dashed rgba(23, 170, 187, 0.15); color: #2c3e50; font-size: 0.95rem; display: flex; align-items: flex-start;">
+                        <i class="fas fa-check" style="color: #17aabb; margin-right: 10px; margin-top: 4px; font-size: 0.8rem;"></i>
+                        <span>Pentavalente</span>
+                    </li>
+                    <li style="padding: 0.6rem 0; border-bottom: 1px dashed rgba(23, 170, 187, 0.15); color: #2c3e50; font-size: 0.95rem; display: flex; align-items: flex-start;">
+                        <i class="fas fa-check" style="color: #17aabb; margin-right: 10px; margin-top: 4px; font-size: 0.8rem;"></i>
+                        <span>Polio Oral</span>
+                    </li>
+                    <li style="padding: 0.6rem 0; border-bottom: 1px dashed rgba(23, 170, 187, 0.15); color: #2c3e50; font-size: 0.95rem; display: flex; align-items: flex-start;">
+                        <i class="fas fa-check" style="color: #17aabb; margin-right: 10px; margin-top: 4px; font-size: 0.8rem;"></i>
+                        <span>Polio IVP</span>
+                    </li>
+                    <li style="padding: 0.6rem 0; border-bottom: 1px dashed rgba(23, 170, 187, 0.15); color: #2c3e50; font-size: 0.95rem; display: flex; align-items: flex-start;">
+                        <i class="fas fa-check" style="color: #17aabb; margin-right: 10px; margin-top: 4px; font-size: 0.8rem;"></i>
+                        <span style="line-height: 1.3;">(SRP) Sarampión - Rubeola - Parotiditis</span>
+                    </li>
+                    <li style="padding: 0.6rem 0; color: #2c3e50; font-size: 0.95rem; display: flex; align-items: flex-start;">
+                        <i class="fas fa-check" style="color: #17aabb; margin-right: 10px; margin-top: 4px; font-size: 0.8rem;"></i>
+                        <span>(FA) Fiebre Amarilla</span>
+                    </li>
+                </ul>
+            </div>
+        
+            <div class="container-descripcion-servicio" style="text-align: left; padding: 2rem;">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <i class="fas fa-user-shield" style="font-size: 2.5rem; color: #17aabb;"></i>
+                    <h3 style="margin-top: 0.5rem;">Vacunas Para Adultos</h3>
+                </div>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="padding: 0.6rem 0; border-bottom: 1px dashed rgba(23, 170, 187, 0.15); color: #2c3e50; font-size: 0.95rem; display: flex; align-items: flex-start;">
+                        <i class="fas fa-check" style="color: #17aabb; margin-right: 10px; margin-top: 4px; font-size: 0.8rem;"></i>
+                        <span>Toxoide</span>
+                    </li>
+                    <li style="padding: 0.6rem 0; color: #2c3e50; font-size: 0.95rem; display: flex; align-items: flex-start;">
+                        <i class="fas fa-check" style="color: #17aabb; margin-right: 10px; margin-top: 4px; font-size: 0.8rem;"></i>
+                        <span>(FA) Fiebre Amarilla</span>
+                    </li>
+                </ul>
+            </div>        
+        </div>        
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contactenos">
+        <h4 style="color: #cccccc; padding: 2rem 1rem 0.5rem;">Nuestras Redes Sociales</h4>
+        <div class="social">
+            <a href="https://www.facebook.com/ambulatoriodecantarrana.fundasaludsucre/"><i class="fab fa-facebook"></i></a>
+        </div>
+        <div class="copy">
+            <p>&copy; Ambulatorio Dr. Bernardino Martinez. Todos los derechos reservados.</p>
+        </div>      
+    </footer>
+
+    <script>
+        const btnCart = document.querySelector(".icon-cart")
+        const btnClose = document.querySelector(".icon-close")
+        const containerListaSecciones = document.querySelector('.container-lista-secciones')
+
+        btnCart.addEventListener('click', () => {
+            containerListaSecciones.classList.toggle('hidden-secciones')
+        })
+        
+        btnClose.addEventListener('click', () => {
+            containerListaSecciones.classList.add('hidden-secciones')
+        })
+    </script>
+</body>
+</html>

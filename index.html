@@ -38,7 +38,7 @@ header {
     position: fixed;
     top: 0;
     z-index: 1000;
-    width: 100%;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -567,6 +567,12 @@ footer .copy {
     .container-imagen h1 {
         font-size: 2.5rem;
     }
+    
+    section#jornada-vacunacion > div[style*="display: grid;"] {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }    
 }
 
 /* Móvil pequeño (hasta 480px) */

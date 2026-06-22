@@ -41,6 +41,7 @@ header {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px 0;
     background: linear-gradient(180deg, #23d1dd 0%, #17aabb 100%);
 }
@@ -48,42 +49,52 @@ header {
 header h1 {
     margin-left: 1rem;
     color: white;
+    font-size: 1.5rem;
+}
+
+.container-icon {
+    position: relative;
+    margin-right: 1rem;
 }
 
 /* Iconos del header */
 .icon-cart {
     width: 40px;
     height: 40px;
-    margin-right: 1rem;
     color: white;
+    stroke: currentColor;
+    cursor: pointer;
+    transition: color 0.3 ease;
 }
 
 .icon-cart:hover {
-    stroke: rgb(216, 216, 216);
-    cursor: pointer;
+    color: #e9f6f7;
 }
 
 .icon-close {
     width: 25px;
     height: 25px;
     margin: 10px;
+    stroke: currentColor;
+    cursor: pointer;
+    transition: color 0.3 ease;
 }
 
 .icon-close:hover {
-    stroke: red;
-    cursor: pointer;
+    color: #ff4d4d;
 }
 
 /* Menú desplegable */
 .container-lista-secciones {
     position: absolute;
-    top: 50px;
-    right: 0;
+    top: 55px;
+    right: 1rem;
     background-color: #f6feff;
-    width: 90%;
-    max-width: 400px;
-    z-index: 1;
+    width: 280px;
+    z-index: 1001;
     border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(23, 170, 187, 0.1);
 }
 
 .hidden-secciones {
@@ -93,19 +104,21 @@ header h1 {
 .info-secciones {
     display: flex;
     flex-direction: column;
+    padding: 10px;
 }
 
 .info-secciones a {
-    padding: 0.6rem 0.8rem;
+    padding: 0.8rem 1rem;
     text-decoration: none;
     font-weight: bold;
     color: rgb(54, 118, 122);
+    transition: all 0.2s ease;
 }
 
 .info-secciones a:hover {
-    color: rgb(81, 186, 194);
+    color: rgb(23, 170, 187);
     background: #e9f6f7;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 }
 
 /* ===== HERO SECTION ===== */
@@ -581,19 +594,20 @@ footer .copy {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
-        </div>
+            
+            <div class="container-lista-secciones hidden-secciones">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
 
-        <div class="container-lista-secciones hidden-secciones">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-close">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-
-            <div class="info-secciones">
-                <a href="#">Inicio</a>
-                <a href="#horarios-atencion">Horarios</a>
-                <a href="#servicio-seccion">Servicios</a>
-                <a href="#jornada-vacunacion">Vacunación</a>
-                <a href="#contactenos">Contacto</a>
+                <div class="info-secciones">
+                    <a href="#">Inicio</a>
+                    <a href="#horarios-atencion">Horarios</a>
+                    <a href="#servicio-seccion">Servicios</a>
+                    <a href="#jornada-vacunacion">Vacunación</a>
+                    <a href="#contactenos">Contacto</a>
+                </div>
             </div>
         </div>
     </header>
